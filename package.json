@@ -1,0 +1,24 @@
+{
+  "name": "redis-pubsub",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@nestjs/common": "^10.4.15",
+    "lodash": "^4.17.21",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^22.10.3",
+    "@types/redis": "^4.0.10",
+    "typescript": "^5.7.2"
+  }
+}
