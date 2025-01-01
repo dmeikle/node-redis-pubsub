@@ -22,10 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-export { EventManager } from './src/event-manager';
-export { EventRegistry } from './src/event-registry';
-export { publishMessage } from './src/publisher';
-export { Subscriber } from './src/subscriber';
-export { SubscriberInterface } from './src/subscriber.interface';
-export { SubscriptionBase } from './src/subscription-base';
-export { Subscription } from './src/subscription-base';
+export { EventManager } from './event-manager';
+export { EventRegistry } from './event-registry';
+export { publishMessage } from './publisher';
+export { Subscriber } from './subscriber';
+export { SubscriberInterface } from './subscriber.interface';
+export { SubscriptionBase } from './subscription-base';
+export { Subscription } from './subscription-base';
