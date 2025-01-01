@@ -24,7 +24,7 @@
  */
 type MessageHandler = (message: Record<string, string>) => void;
 
-class EventRegistry {
+export class EventRegistry {
     private registry: Map<string, MessageHandler[]> = new Map();
 
     public register(event: string, handler: MessageHandler): void {

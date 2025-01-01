@@ -25,7 +25,7 @@
 import { createClient, RedisClientType } from 'redis';
 import EventRegistry from './event-registry';
 
-class Subscriber {
+export class Subscriber {
     protected subscriber: RedisClientType;
     protected eventRegistry: EventRegistry;
 
