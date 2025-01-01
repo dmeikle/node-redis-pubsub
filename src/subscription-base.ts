@@ -47,6 +47,7 @@ export abstract class SubscriptionBase implements OnApplicationBootstrap {
         const map: Subscription[] = this.getSubscriptions();
         forEach(map, (subscriber: Subscription) => {
             const subscriptionHandler: SubscriberInterface = subscriber.subscriber;
+            console.log(`Registering subscription for ${subscriber.type} with handler ${subscriptionHandler.constructor.name}`);
             this.eventManager.subscribe(subscriber.type, subscriptionHandler.handleEvent.bind(subscriptionHandler));
         });
     }

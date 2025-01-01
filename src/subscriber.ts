@@ -51,6 +51,7 @@ export class Subscriber {
             this.subscriber.on('message', (channel, message) => {
                 const parsedMessage: Record<string, string> = JSON.parse(message);
                 const event = parsedMessage.event;
+                console.log(`Received message from ${channel}:`, parsedMessage);
                 this.eventRegistry.notify(event, parsedMessage);
             });
         } catch (err: unknown) {

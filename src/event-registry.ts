@@ -22,22 +22,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import {Logger} from "@nestjs/common";
+
 type MessageHandler = (message: Record<string, string>) => void;
 
 export class EventRegistry {
     private registry: Map<string, MessageHandler[]> = new Map();
+    private readonly logger: Logger = new Logger(EventRegistry.name);
 
     public register(event: string, handler: MessageHandler): void {
         if (!this.registry.has(event)) {
+            this.logger.log(`Registering event: ${event}`);
             this.registry.set(event, []);
         }
         this.registry.get(event)?.push(handler);
     }
 
     public notify(event: string, message: Record<string, string>): void {
-        const handlers = this.registry.get(event);
+        const handlers: MessageHandler[] | undefined = this.registry.get(event);
         if (handlers) {
-            handlers.forEach(handler => handler(message));
+            handlers.forEach((handler: MessageHandler) => {
+                this.logger.log(`Calling handler for event: ${event}`);
+                handler(message);
+            });
         }
     }
 }

@@ -22,16 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import { Injectable } from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 
 type EventHandler = (message: Record<string, string>) => void;
 
 @Injectable()
 export class EventManager {
     private handlers: Map<string, EventHandler[]> = new Map();
-
+    private readonly logger: Logger = new Logger(EventManager.name);
     subscribe(eventType: string, handler: EventHandler): void {
         if (!this.handlers.has(eventType)) {
+            this.logger.log(`Creating event type: ${eventType}`);
             this.handlers.set(eventType, []);
         }
         this.handlers.get(eventType)?.push(handler);
@@ -40,6 +41,7 @@ export class EventManager {
     notify(eventType: string, message: Record<string, string>): void {
         const eventHandlers = this.handlers.get(eventType);
         if (eventHandlers) {
+            this.logger.log(`Notifying ${eventHandlers.length} handlers for event type: ${eventType}`);
             eventHandlers.forEach(handler => handler(message));
         }
     }
