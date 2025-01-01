@@ -1,5 +1,5 @@
 {
-  "name": "redis-pubsub",
+  "name": "node-redis-pubsub",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
