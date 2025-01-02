@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-export { EventManager } from './event-manager';
+import { EventManager } from './event-manager';
 export { EventRegistry } from './event-registry';
 export { publishMessage } from './publisher';
 export { Subscriber } from './subscriber';

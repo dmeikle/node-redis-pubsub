@@ -1,48 +1,47 @@
-/*
- * MIT License
- * 
- * Copyright (c) 2024 Quantum Unit Solutions
- * Author: David Meikle
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-import {Injectable, Logger} from '@nestjs/common';
-
-type EventHandler = (message: Record<string, string>) => void;
+import { Injectable, Logger } from '@nestjs/common';
+import { SubscriberInterface } from './subscriber.interface';
 
 @Injectable()
 export class EventManager {
-    private handlers: Map<string, EventHandler[]> = new Map();
-    private readonly logger: Logger = new Logger(EventManager.name);
-    subscribe(eventType: string, handler: EventHandler): void {
+    private readonly logger = new Logger(EventManager.name);
+    private handlers: Map<string, SubscriberInterface[]> = new Map();
+
+    createEventType(eventType: string): void {
+        this.logger.log(`Creating event type: ${eventType}`);
         if (!this.handlers.has(eventType)) {
-            this.logger.log(`Creating event type: ${eventType}`);
             this.handlers.set(eventType, []);
         }
-        this.handlers.get(eventType)?.push(handler);
     }
 
-    notify(eventType: string, message: Record<string, string>): void {
-        const eventHandlers = this.handlers.get(eventType);
-        if (eventHandlers) {
-            this.logger.log(`Notifying ${eventHandlers.length} handlers for event type: ${eventType}`);
-            eventHandlers.forEach(handler => handler(message));
+    subscribe(eventType: string, handler: SubscriberInterface): void {
+        if (!handler || !handler.handleEvent) {
+            this.logger.error(`Handler for event type ${eventType} is null or undefined`);
+            return;
         }
+        this.logger.log(`Handler ${handler.constructor.name} added for event type: ${eventType}`);
+        if (this.handlers.has(eventType)) {
+            this.handlers.get(eventType)?.push(handler);
+        } else {
+            this.handlers.set(eventType, [handler]);
+        }
+        this.logCurrentHandlers();
+    }
+
+    notify(eventType: string, event: Record<string, string>): void {
+        this.logger.log(`Notifying handlers for event type: ${eventType}`);
+        const handlers: SubscriberInterface[] | undefined = this.handlers.get(eventType);
+        if (handlers) {
+            handlers.forEach(handler => {
+                if (handler) {
+                    handler.handleEvent(event);
+                } else {
+                    this.logger.warn(`Handler for event type ${eventType} is null`);
+                }
+            });
+        }
+    }
+
+    private logCurrentHandlers(): void {
+        this.logger.log(`Current handlers: ${JSON.stringify(Array.from(this.handlers.entries()), null, 2)}`);
     }
 }

@@ -63,5 +63,3 @@ export class Subscriber {
         await this.subscriber.disconnect();
     }
 }
-
-export default Subscriber;
