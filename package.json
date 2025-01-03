@@ -42,10 +42,6 @@
     "release": "standard-version",
     "prepublishOnly": "npm run release && npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@nestjs/common": "^10.4.15",
     "lodash": "^4.17.21",
