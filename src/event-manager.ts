@@ -1,5 +1,7 @@
+// src/event-manager.ts
 import { Injectable, Logger } from '@nestjs/common';
 import { SubscriberInterface } from './subscriber.interface';
+import { Event } from './event';
 
 @Injectable()
 export class EventManager {
@@ -24,11 +26,9 @@ export class EventManager {
         } else {
             this.handlers.set(eventType, [handler]);
         }
-        this.logCurrentHandlers();
     }
 
-    notify(eventType: string, event: Record<string, string>): void {
-        this.logger.log(`Notifying handlers for event type: ${eventType}`);
+    notify(eventType: string, event: Event): void {
         const handlers: SubscriberInterface[] | undefined = this.handlers.get(eventType);
         if (handlers) {
             handlers.forEach(handler => {
@@ -41,7 +41,4 @@ export class EventManager {
         }
     }
 
-    private logCurrentHandlers(): void {
-        this.logger.log(`Current handlers: ${JSON.stringify(Array.from(this.handlers.entries()), null, 2)}`);
-    }
 }

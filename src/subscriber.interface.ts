@@ -22,6 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+// src/subscriber.interface.ts
+import { Event } from './event';
+
 export interface SubscriberInterface {
-    handleEvent(message: Record<string, string>): void;
+    handleEvent(event: Event): void;
 }

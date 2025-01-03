@@ -1,7 +1,7 @@
 import { Logger, OnApplicationBootstrap } from '@nestjs/common';
-import { EventManager } from './event-manager';
 import { SubscriberInterface } from './subscriber.interface';
 import { forEach } from 'lodash';
+import {EventManager} from "./event-manager";
 
 export type Subscription = {
     type: string;
@@ -9,7 +9,7 @@ export type Subscription = {
 };
 
 export abstract class SubscriptionBase implements OnApplicationBootstrap {
-    protected readonly logger = new Logger(this.constructor.name);
+    protected readonly logger: Logger = new Logger(this.constructor.name);
     protected subscriptions: Subscription[] = [];
 
     abstract getSubscriptions(): Subscription[];

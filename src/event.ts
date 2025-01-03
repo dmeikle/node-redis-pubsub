@@ -22,12 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import {EventManager} from "./event-manager";
+export class Event {
+    [key: string]: any;
 
-export { EventManager } from './event-manager';
-export { EventRegistry } from './event-registry';
-export { publishMessage } from './publisher';
-export { Subscriber } from './subscriber';
-export { SubscriberInterface } from './subscriber.interface';
-export { SubscriptionBase, Subscription } from './subscription-base';
-export { Event } from './event';
+    constructor(data: Record<string, any>) {
+        Object.assign(this, data);
+    }
+}
