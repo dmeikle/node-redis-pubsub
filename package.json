@@ -1,13 +1,39 @@
 {
   "name": "qus-node-redis-pubsub",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./event-manager": "./dist/event-manager.js",
-    "./subscriber": "./dist/subscriber.js",
-    "./subscriber.interface": "./dist/subscriber.interface.js",
-    "./subscription-base": "./dist/subscription-base.js"
+    "./event-manager": {
+      "import": "./dist/event-manager.js",
+      "require": "./dist/event-manager.js",
+      "types": "./dist/event-manager.d.ts"
+    },
+    "./event-registry": {
+      "import": "./dist/event-registry.js",
+      "require": "./dist/event-registry.js",
+      "types": "./dist/event-registry.d.ts"
+    },
+    "./publisher": {
+      "import": "./dist/publisher.js",
+      "require": "./dist/publisher.js",
+      "types": "./dist/publisher.d.ts"
+    },
+    "./subscriber": {
+      "import": "./dist/subscriber.js",
+      "require": "./dist/subscriber.js",
+      "types": "./dist/subscriber.d.ts"
+    },
+    "./subscriber.interface": {
+      "import": "./dist/subscriber.interface.js",
+      "require": "./dist/subscriber.interface.js",
+      "types": "./dist/subscriber.interface.d.ts"
+    },
+    "./subscription-base": {
+      "import": "./dist/subscription-base.js",
+      "require": "./dist/subscription-base.js",
+      "types": "./dist/subscription-base.d.ts"
+    }
   },
   "types": "dist/index.d.ts",
   "scripts": {
