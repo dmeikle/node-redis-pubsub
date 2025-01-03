@@ -1,6 +1,6 @@
 {
   "name": "qus-node-redis-pubsub",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
