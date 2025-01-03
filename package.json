@@ -1,7 +1,8 @@
 {
   "name": "qus-node-redis-pubsub",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./event-manager": {
@@ -35,7 +36,6 @@
       "types": "./dist/subscription-base.d.ts"
     }
   },
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
