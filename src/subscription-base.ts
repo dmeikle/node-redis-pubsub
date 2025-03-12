@@ -17,6 +17,7 @@ export abstract class SubscriptionBase implements OnApplicationBootstrap {
     constructor(protected eventManager: EventManager) {}
 
     onApplicationBootstrap(): void {
+        this.logger.log('Registering subscriptions.');
         this.registerSubscriptions();
         this.logger.log('Subscriptions setup completed.');
     }
